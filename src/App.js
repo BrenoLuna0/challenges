@@ -34,7 +34,6 @@ function App() {
     <div className="global-map">
       <GoogleMapReact
         bootstrapURLKeys={{
-          key: "AIzaSyBYWhBtY6_0FUdsBKO-18Vmf0d3Vdppsco",
           language: "pt",
           region: "br",
         }}
