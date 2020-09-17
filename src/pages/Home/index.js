@@ -6,9 +6,16 @@ import options from "../../utils/mapOptions";
 import HeroMarker from "../../components/HeroMarker";
 import ThreatMarker from "../../components/ThreatMarker";
 import MarkerView from "../../components/MarkerViewer";
+import Log from "../../components/LogBox";
 
 export default function Home() {
   const [markerView, setMarkerView] = useState({});
+  const [logs, setLogs] = useState([
+    { id: 1, message: "TESTE DE LOG 1" },
+    { id: 2, message: "TESTE DE LOG 2" },
+    { id: 3, message: "TESTE DE LOG 3" },
+    { id: 4, message: "TESTE DE LOG 4" },
+  ]);
 
   const updateMarkerView = (marker) => {
     setMarkerView({
@@ -72,6 +79,7 @@ export default function Home() {
           updateMarkerView({ rank: "", name: "", lat: "", lng: "" });
         }}
       />
+      <Log logs={logs} />
     </div>
   );
 }
