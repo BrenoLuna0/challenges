@@ -7,6 +7,7 @@ import HeroMarker from "../../components/HeroMarker";
 import ThreatMarker from "../../components/ThreatMarker";
 import MarkerView from "../../components/MarkerViewer";
 import Log from "../../components/LogBox";
+import Status from "../../components/StatusDisplayer";
 
 export default function Home() {
   const [markerView, setMarkerView] = useState({});
@@ -80,6 +81,7 @@ export default function Home() {
         }}
       />
       <Log logs={logs} />
+      <Status status="secure" />
     </div>
   );
 }
