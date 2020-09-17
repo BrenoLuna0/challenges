@@ -1,33 +1,10 @@
 import React from "react";
 import GoogleMapReact from "google-map-react";
 import "./style.css";
+import options from "../../utils/mapOptions";
 
-const options = () => ({
-  zoomControl: false,
-  fullscreenControl: false,
-  disableDoubleClickZoom: true,
-  keyboardShortcuts: false,
-  scrollwheel: false,
-  panControl: false,
-  styles: [
-    {
-      featureType: "administrative",
-      stylers: [{ color: "#333333" }],
-    },
-    {
-      elementType: "labels",
-      stylers: [{ visibility: "off" }],
-    },
-    {
-      featureType: "landscape",
-      stylers: [{ color: "#333333" }],
-    },
-    {
-      featureType: "water",
-      stylers: [{ color: "#b0b0b0" }],
-    },
-  ],
-});
+import HeroMarker from "../../components/HeroMarker";
+import ThreatMarker from "../../components/ThreatMarker";
 
 export default function Home() {
   return (
@@ -38,16 +15,25 @@ export default function Home() {
           language: "pt",
           region: "br",
         }}
-        defaultZoom={0}
+        defaultZoom={-1}
         defaultCenter={{
           lat: 0,
           lng: 0,
         }}
         options={options}
       >
-        <div lat={59.955413} lng={30.337844}>
-          My Marker
-        </div>
+        <HeroMarker
+          lat={59.955413}
+          lng={30.337844}
+          rank="S"
+          name="Endevour asdasd asdasdasd asdasda sd"
+        />
+        <ThreatMarker
+          lat={-8.2569}
+          lng={-35.9597}
+          rank="God"
+          name="God Eater"
+        />
       </GoogleMapReact>
     </div>
   );
