@@ -45,3 +45,10 @@ div.threat-marker-Wolf {
   font-size: 45px;
   text-align: center;
 }
+
+div.threat-marker-God,
+div.threat-marker-Dragon,
+div.threat-marker-Tiger,
+div.threat-marker-Wolf:hover {
+  cursor: pointer;
+}

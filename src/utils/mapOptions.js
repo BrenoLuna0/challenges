@@ -20,7 +20,7 @@ const options = () => ({
     },
     {
       featureType: "water",
-      stylers: [{ color: "#b0b0b0" }],
+      stylers: [{ color: "#E5E5E5" }],
     },
   ],
 });
