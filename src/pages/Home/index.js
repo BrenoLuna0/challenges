@@ -7,7 +7,7 @@ import HeroMarker from "../../components/HeroMarker";
 import ThreatMarker from "../../components/ThreatMarker";
 import MarkerView from "../../components/MarkerViewer";
 import Log from "../../components/LogBox";
-import Status from "../../components/StatusDisplayer";
+import ButtonHeroForm from "../../components/ButtonHeroForm";
 
 export default function Home() {
   const [markerView, setMarkerView] = useState({});
@@ -17,6 +17,8 @@ export default function Home() {
     { id: 3, message: "TESTE DE LOG 3" },
     { id: 4, message: "TESTE DE LOG 4" },
   ]);
+  const [heores, setHeroes] = useState([]);
+  const [threats, setThtreats] = useState([]);
 
   const updateMarkerView = (marker) => {
     setMarkerView({
@@ -45,12 +47,12 @@ export default function Home() {
         <HeroMarker
           lat={59.955413}
           lng={30.337844}
-          rank="C"
+          rank="S"
           name="Endevour asdasd asdasdasd asdasda sd"
           onClick={() => {
             updateMarkerView({
               name: "Endevour",
-              rank: "C",
+              rank: "S",
               lat: 59.955413,
               lng: 30.337844,
             });
@@ -81,7 +83,7 @@ export default function Home() {
         }}
       />
       <Log logs={logs} />
-      <Status status="secure" />
+      <ButtonHeroForm />
     </div>
   );
 }

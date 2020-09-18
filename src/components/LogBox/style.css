@@ -3,7 +3,7 @@ div.logs {
   bottom: 15px;
   right: 15px;
   width: 350px;
-  height: 350px;
+  height: 250px;
   overflow: scroll;
   background-color: #f3f3f3;
   font-family: "Roboto", sans-serif;
