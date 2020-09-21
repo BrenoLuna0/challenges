@@ -20,27 +20,28 @@ export default function Home() {
 
   const [trigger, setTrigger] = useState(true);
 
-  const attack = async (threat, hero) => {
-    setTimeout(() => {
+  const attack = async (threat) => {
+    const hero = assignHero(heroes, threat);
+
+    /* setTimeout(() => {
       setHeroes((state) =>
         state.map((h) => {
           return hero.id === h.id
             ? {
                 name: h.name,
                 rank: h.rank,
-                lat: threat.lat + 10,
-                lng: threat.lng + 10,
+                lat: threat.location[0].lat + 10,
+                lng: threat.location[0].lng + 10,
               }
             : h;
         })
       );
-    }, 3000);
-
+    }, 5000);
     await api
       .put("/hero", {
         id: hero.id,
-        lat: threat.lat + 10,
-        lng: threat.lng + 10,
+        lat: threat.location[0].lat + 10,
+        lng: threat.location[0].lng + 10,
       })
       .then(() => {
         setTrigger(!trigger);
@@ -56,7 +57,7 @@ export default function Home() {
           return threat.name !== t.name;
         })
       );
-    }, 3000);
+    }, 10000); */
   };
 
   const updateMarkerView = (marker) => {
@@ -87,12 +88,6 @@ export default function Home() {
       });
   };
 
-  socket.on("occurrence", (threat) => {
-    let shallowCopy = [...threats];
-    shallowCopy.push(threat);
-    setThreats(shallowCopy);
-  });
-
   useEffect(() => {
     const loadHeores = async () => {
       await api
@@ -116,6 +111,10 @@ export default function Home() {
     };
     loadHeores();
     loadLogs();
+    /* socket.on("occurrence", (threat) => {
+      setThreats((state) => [...state, threat]);
+      //attack(threat);
+    }); */
   }, [trigger]);
 
   return (
@@ -133,6 +132,7 @@ export default function Home() {
         }}
         options={options}
       >
+        {console.log(heroes)}
         {heroes.map((hero, index) => {
           return (
             <HeroMarker
