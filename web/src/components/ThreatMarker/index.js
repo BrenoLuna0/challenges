@@ -9,7 +9,7 @@ export default function Component({ rank, lat, lng, onClick }) {
       className={`threat-marker-${rank}`}
       onClick={onClick}
     >
-      {rank}
+      <div style={{ marginTop: 18 }}>{rank}</div>
     </div>
   );
 }

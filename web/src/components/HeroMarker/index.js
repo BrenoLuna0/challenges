@@ -12,8 +12,7 @@ export default function Component({ rank, name, lat, lng, onClick }) {
         onClick();
       }}
     >
-      <div className="marker-title">{name}</div>
-      <div className={`marker-rank-${rank}`}>{rank}</div>
+      {rank}
     </div>
   );
 }

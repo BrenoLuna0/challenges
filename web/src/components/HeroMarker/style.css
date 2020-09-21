@@ -1,89 +1,53 @@
 div.marker-container-S {
-  width: 300px;
-  height: 100px;
-  border: 4px solid #540098;
+  width: 65px;
+  height: 65px;
+  border: 4px solid #5cb85c;
   background-color: #dfc7f2;
-  border-radius: 7px;
-  position: relative;
-}
-
-div.marker-rank-S {
-  position: absolute;
+  border-radius: 65px;
   font-family: "UnifrakturCook", cursive;
-  font-size: 70px;
+  font-size: 55px;
   color: #540098;
   text-align: center;
-  height: 90%;
-  width: 30%;
-  right: 5px;
-  top: 5px;
-  background-color: #f3f3f3;
+  position: relative;
 }
 
 div.marker-container-A {
-  width: 300px;
-  height: 100px;
-  border: 4px solid #c28600;
+  width: 65px;
+  height: 65px;
+  border: 4px solid #5cb85c;
   background-color: #ffe9b9;
-  border-radius: 7px;
-  position: relative;
-}
-
-div.marker-rank-A {
-  position: absolute;
+  border-radius: 65px;
   font-family: "UnifrakturCook", cursive;
-  font-size: 70px;
+  font-size: 45px;
   color: #c28600;
   text-align: center;
-  height: 90%;
-  width: 30%;
-  right: 5px;
-  top: 5px;
-  background-color: #f3f3f3;
+  position: relative;
 }
 
 div.marker-container-B {
-  width: 300px;
-  height: 100px;
-  border: 4px solid #003546;
+  width: 65px;
+  height: 65px;
+  border: 4px solid #5cb85c;
   background-color: #cfcfcf;
-  border-radius: 7px;
-  position: relative;
-}
-
-div.marker-rank-B {
-  position: absolute;
+  border-radius: 65px;
   font-family: "UnifrakturCook", cursive;
-  font-size: 70px;
+  font-size: 50px;
   color: #003546;
   text-align: center;
-  height: 90%;
-  width: 30%;
-  right: 5px;
-  top: 5px;
-  background-color: #f3f3f3;
+  position: relative;
 }
 
 div.marker-container-C {
-  width: 300px;
-  height: 100px;
-  border: 4px solid #2f140e;
+  width: 65px;
+  height: 65px;
+  border: 4px solid #5cb85c;
   background-color: #e9d7d3;
-  border-radius: 7px;
-  position: relative;
-}
-
-div.marker-rank-C {
-  position: absolute;
+  border-radius: 65px;
   font-family: "UnifrakturCook", cursive;
-  font-size: 70px;
+  font-size: 50px;
   color: #2f140e;
   text-align: center;
-  height: 90%;
-  width: 30%;
-  right: 5px;
-  top: 5px;
-  background-color: #f3f3f3;
+  position: relative;
 }
 
 div.marker-title {
