@@ -11,6 +11,6 @@ app.use(express.json());
 
 app.use("/api", require("./src/routes"));
 
-app.listen(3333, () => {
+app.listen(process.env.PORT || 3333, () => {
   console.log("Servidor ouvindo na porta 3333");
 });
