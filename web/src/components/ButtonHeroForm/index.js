@@ -4,7 +4,7 @@ import "./style.css";
 import Button from "../Button";
 import HeroForm from "../HeroForm";
 
-export default function Component() {
+export default function Component({ addHero }) {
   const [status, setStatus] = useState(["display", "hide"]);
 
   const changeView = () => {
@@ -22,7 +22,8 @@ export default function Component() {
       </div>
       <div className={status[1]}>
         <HeroForm
-          onSend={() => {
+          onSend={(hero) => {
+            addHero(hero);
             changeView();
           }}
         />

@@ -44,7 +44,16 @@ export default function Component({ onSend }) {
         onChange={(e) => setLng(e.target.value)}
       />
 
-      <div className="hero-form-submit" onClick={onSend}>
+      <div
+        className="hero-form-submit"
+        onClick={() => {
+          if (heroName === "" || heroRank === "" || lat === "" || lng === "") {
+            alert("Dados inválidos");
+          } else {
+            onSend({ name: heroName, rank: heroRank, lat, lng });
+          }
+        }}
+      >
         Register
       </div>
     </div>

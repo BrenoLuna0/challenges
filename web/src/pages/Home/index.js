@@ -3,6 +3,7 @@ import GoogleMapReact from "google-map-react";
 import "./style.css";
 import options from "../../utils/mapOptions";
 import { assignHero } from "../../utils/geoLocation";
+import api from "../../services/api";
 
 import HeroMarker from "../../components/HeroMarker";
 import ThreatMarker from "../../components/ThreatMarker";
@@ -12,16 +13,13 @@ import ButtonHeroForm from "../../components/ButtonHeroForm";
 
 export default function Home() {
   const [markerView, setMarkerView] = useState({});
-  const [logs, setLogs] = useState([
-    { id: 1, message: "TESTE DE LOG 1" },
-    { id: 2, message: "TESTE DE LOG 2" },
-    { id: 3, message: "TESTE DE LOG 3" },
-    { id: 4, message: "TESTE DE LOG 4" },
-  ]);
+  const [logs, setLogs] = useState([]);
   const [heroes, setHeroes] = useState([]);
   const [threats, setThreats] = useState([]);
 
-  const attack = (threat, hero) => {
+  const [trigger, setTrigger] = useState(true);
+
+  const attack = async (threat, hero) => {
     setTimeout(() => {
       setHeroes((state) =>
         state.map((h) => {
@@ -37,7 +35,19 @@ export default function Home() {
       );
     }, 3000);
 
-    //atualizar os dados no banco de dados
+    await api
+      .put("/hero", {
+        id: hero.id,
+        lat: threat.lat + 10,
+        lng: threat.lng + 10,
+      })
+      .then(() => {
+        setTrigger(!trigger);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
     //atualizar o log com o hero e a threat
     setTimeout(() => {
       setThreats((state) =>
@@ -57,38 +67,49 @@ export default function Home() {
     });
   };
 
-  useEffect(() => {
-    const loadHeores = () => {
-      setHeroes([
-        { name: "Endevour", rank: "S", lat: 59.955413, lng: 30.337844, id: 1 },
-        { name: "Midorya", rank: "A", lat: 24.955413, lng: -8.337844, id: 2 },
-        {
-          name: "Mikasa Arckeman",
-          rank: "B",
-          lat: 1.955413,
-          lng: 0.337844,
-          id: 3,
-        },
-        {
-          name: "Homem Sereia",
-          rank: "C",
-          lat: 80.955413,
-          lng: 80.337844,
-          id: 4,
-        },
-      ]);
+  const addHero = async (hero) => {
+    let shallowCopy = [...heroes];
+    shallowCopy.push(hero);
+    setHeroes(shallowCopy);
+    api
+      .post("/hero", {
+        name: hero.name,
+        rank: hero.rank,
+        lat: hero.lat,
+        lng: hero.lng,
+      })
+      .then(() => {
+        setTrigger(!trigger);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-      setThreats([
-        {
-          lat: -8.2569,
-          lng: -35.9597,
-          rank: "God",
-          name: "God Eater",
-        },
-      ]);
+  useEffect(() => {
+    const loadHeores = async () => {
+      await api
+        .get("/hero")
+        .then((response) => {
+          setHeroes(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    const loadLogs = async () => {
+      await api
+        .get("/log")
+        .then((response) => {
+          setLogs(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     };
     loadHeores();
-  }, []);
+    loadLogs();
+  }, [trigger]);
 
   return (
     <div className="global-map">
@@ -119,20 +140,25 @@ export default function Home() {
             />
           );
         })}
-        <ThreatMarker
-          lat={-8.2569}
-          lng={-35.9597}
-          rank="God"
-          name="God Eater"
-          onClick={() => {
-            updateMarkerView({
-              name: "God Eater",
-              rank: "God",
-              lat: 59.955413,
-              lng: 30.337844,
-            });
-          }}
-        />
+        {threats.map((threat, index) => {
+          return (
+            <ThreatMarker
+              key={index}
+              lat={threat.location[0].lat}
+              lng={threat.location[0].lng}
+              rank={threat.dangerLevel}
+              name={threat.monsterName}
+              onClick={() => {
+                updateMarkerView({
+                  name: threat.monsterName,
+                  rank: threat.dangerLevel,
+                  lat: threat.location[0].lat,
+                  lng: threat.location[0].lng,
+                });
+              }}
+            />
+          );
+        })}
       </GoogleMapReact>
       <MarkerView
         rank={markerView.rank || ""}
@@ -144,7 +170,11 @@ export default function Home() {
         }}
       />
       <Log logs={logs} />
-      <ButtonHeroForm />
+      <ButtonHeroForm
+        addHero={(hero) => {
+          addHero(hero);
+        }}
+      />
     </div>
   );
 }
