@@ -4,6 +4,7 @@ import "./style.css";
 import options from "../../utils/mapOptions";
 import { assignHero } from "../../utils/geoLocation";
 import api from "../../services/api";
+import socket from "../../services/socket";
 
 import HeroMarker from "../../components/HeroMarker";
 import ThreatMarker from "../../components/ThreatMarker";
@@ -85,6 +86,12 @@ export default function Home() {
         console.log(err);
       });
   };
+
+  socket.on("occurrence", (threat) => {
+    let shallowCopy = [...threats];
+    shallowCopy.push(threat);
+    setThreats(shallowCopy);
+  });
 
   useEffect(() => {
     const loadHeores = async () => {
