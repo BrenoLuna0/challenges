@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import GoogleMapReact from "google-map-react";
 import "./style.css";
 import options from "../../utils/mapOptions";
+import { assignHero } from "../../utils/geoLocation";
 
 import HeroMarker from "../../components/HeroMarker";
 import ThreatMarker from "../../components/ThreatMarker";
@@ -17,8 +18,35 @@ export default function Home() {
     { id: 3, message: "TESTE DE LOG 3" },
     { id: 4, message: "TESTE DE LOG 4" },
   ]);
-  const [heores, setHeroes] = useState([]);
-  const [threats, setThtreats] = useState([]);
+  const [heroes, setHeroes] = useState([]);
+  const [threats, setThreats] = useState([]);
+
+  const attack = (threat, hero) => {
+    setTimeout(() => {
+      setHeroes((state) =>
+        state.map((h) => {
+          return hero.id === h.id
+            ? {
+                name: h.name,
+                rank: h.rank,
+                lat: threat.lat + 10,
+                lng: threat.lng + 10,
+              }
+            : h;
+        })
+      );
+    }, 3000);
+
+    //atualizar os dados no banco de dados
+    //atualizar o log com o hero e a threat
+    setTimeout(() => {
+      setThreats((state) =>
+        state.filter((t) => {
+          return threat.name !== t.name;
+        })
+      );
+    }, 3000);
+  };
 
   const updateMarkerView = (marker) => {
     setMarkerView({
@@ -32,14 +60,30 @@ export default function Home() {
   useEffect(() => {
     const loadHeores = () => {
       setHeroes([
-        { name: "Endevour", rank: "S", lat: 59.955413, lng: 30.337844 },
-        { name: "Midorya", rank: "A", lat: 24.955413, lng: -8.337844 },
-        { name: "Mikasa Arckeman", rank: "B", lat: 1.955413, lng: 0.337844 },
+        { name: "Endevour", rank: "S", lat: 59.955413, lng: 30.337844, id: 1 },
+        { name: "Midorya", rank: "A", lat: 24.955413, lng: -8.337844, id: 2 },
+        {
+          name: "Mikasa Arckeman",
+          rank: "B",
+          lat: 1.955413,
+          lng: 0.337844,
+          id: 3,
+        },
         {
           name: "Homem Sereia",
           rank: "C",
           lat: 80.955413,
           lng: 80.337844,
+          id: 4,
+        },
+      ]);
+
+      setThreats([
+        {
+          lat: -8.2569,
+          lng: -35.9597,
+          rank: "God",
+          name: "God Eater",
         },
       ]);
     };
@@ -61,9 +105,10 @@ export default function Home() {
         }}
         options={options}
       >
-        {heores.map((hero) => {
+        {heroes.map((hero, index) => {
           return (
             <HeroMarker
+              key={index}
               lat={hero.lat}
               lng={hero.lng}
               rank={hero.rank}
@@ -77,12 +122,12 @@ export default function Home() {
         <ThreatMarker
           lat={-8.2569}
           lng={-35.9597}
-          rank="Wolf"
+          rank="God"
           name="God Eater"
           onClick={() => {
             updateMarkerView({
               name: "God Eater",
-              rank: "Wolf",
+              rank: "God",
               lat: 59.955413,
               lng: 30.337844,
             });
