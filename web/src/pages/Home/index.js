@@ -5,6 +5,7 @@ import options from "../../utils/mapOptions";
 import { assignHero } from "../../utils/geoLocation";
 import api from "../../services/api";
 import socket from "../../services/socket";
+import rn from "random-number";
 
 import HeroMarker from "../../components/HeroMarker";
 import ThreatMarker from "../../components/ThreatMarker";
@@ -18,46 +19,70 @@ export default function Home() {
   const [heroes, setHeroes] = useState([]);
   const [threats, setThreats] = useState([]);
 
-  const [trigger, setTrigger] = useState(true);
-
   const attack = async (threat) => {
+    const distanceLat = rn({ min: -8, max: 8 });
+    const distanceLng = rn({ min: -8, max: 8 });
     const hero = assignHero(heroes, threat);
+    console.log(hero);
+    if (hero === undefined) {
+      await api
+        .post("/log", {
+          message: `No heroes avaliable to handle ${threat.monsterName}`,
+        })
+        .then(() => {
+          fetchData();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      return;
+    }
 
-    /* setTimeout(() => {
+    setTimeout(() => {
       setHeroes((state) =>
         state.map((h) => {
           return hero.id === h.id
             ? {
                 name: h.name,
                 rank: h.rank,
-                lat: threat.location[0].lat + 10,
-                lng: threat.location[0].lng + 10,
+                lat: threat.location[0].lat + distanceLat,
+                lng: threat.location[0].lng + distanceLng,
               }
             : h;
         })
       );
-    }, 5000);
+    }, 15000);
+
     await api
       .put("/hero", {
         id: hero.id,
-        lat: threat.location[0].lat + 10,
-        lng: threat.location[0].lng + 10,
+        lat: threat.location[0].lat + distanceLat,
+        lng: threat.location[0].lng + distanceLng,
       })
       .then(() => {
-        setTrigger(!trigger);
+        fetchData();
       })
       .catch((err) => {
         console.log(err);
       });
 
-    //atualizar o log com o hero e a threat
     setTimeout(() => {
       setThreats((state) =>
         state.filter((t) => {
           return threat.name !== t.name;
         })
       );
-    }, 10000); */
+      api
+        .post("/log", {
+          message: `${hero.name} destroys ${threat.monsterName}`,
+        })
+        .then(() => {
+          fetchData();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, 7000);
   };
 
   const updateMarkerView = (marker) => {
@@ -68,11 +93,8 @@ export default function Home() {
       lng: marker.lng,
     });
   };
-
   const addHero = async (hero) => {
-    let shallowCopy = [...heroes];
-    shallowCopy.push(hero);
-    setHeroes(shallowCopy);
+    setHeroes([...heroes, hero]);
     api
       .post("/hero", {
         name: hero.name,
@@ -81,41 +103,56 @@ export default function Home() {
         lng: hero.lng,
       })
       .then(() => {
-        setTrigger(!trigger);
+        fetchData();
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  useEffect(() => {
-    const loadHeores = async () => {
-      await api
-        .get("/hero")
-        .then((response) => {
-          setHeroes(response.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    const loadLogs = async () => {
-      await api
-        .get("/log")
-        .then((response) => {
-          setLogs(response.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    loadHeores();
+  const loadHeroes = async () => {
+    await api
+      .get("/hero")
+      .then((response) => {
+        setHeroes(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const loadLogs = async () => {
+    await api
+      .get("/log")
+      .then((response) => {
+        setLogs(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const fetchData = () => {
+    loadHeroes();
     loadLogs();
-    /* socket.on("occurrence", (threat) => {
-      setThreats((state) => [...state, threat]);
-      //attack(threat);
-    }); */
-  }, [trigger]);
+  };
+
+  const subscribe = () => {
+    socket.on("occurrence", (threat) => {
+      setThreats((state) => [threat, ...state]);
+    });
+  };
+
+  const attackThreat = () => {
+    if (threats.length > 0) {
+      threats.map((threat) => {
+        attack(threat);
+      });
+    }
+  };
+
+  useEffect(fetchData, []);
+  useEffect(subscribe, []);
+  useEffect(attackThreat, [threats]);
 
   return (
     <div className="global-map">
@@ -132,7 +169,6 @@ export default function Home() {
         }}
         options={options}
       >
-        {console.log(heroes)}
         {heroes.map((hero, index) => {
           return (
             <HeroMarker

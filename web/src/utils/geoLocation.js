@@ -26,13 +26,12 @@ export function assignHero(heroes, threat) {
 
   //console.log(heroesOrdinated);
 
-  const assignedHero = heroesOrdinated.filter((hero) => {
+  const assignedHero = heroesOrdinated.find((hero) => {
     if (compare(hero.rank, threat.dangerLevel)) {
       return hero;
     }
   });
+  return assignedHero;
 
   //console.log(assignedHero);
-
-  return assignedHero.length === 0 ? false : assignedHero[0];
 }
