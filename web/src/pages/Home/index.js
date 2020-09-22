@@ -38,33 +38,20 @@ export default function Home() {
       return;
     }
 
-    setTimeout(() => {
-      setHeroes((state) =>
-        state.map((h) => {
-          return hero.id === h.id
-            ? {
-                name: h.name,
-                rank: h.rank,
-                lat: threat.location[0].lat + distanceLat,
-                lng: threat.location[0].lng + distanceLng,
-              }
-            : h;
+    setTimeout(async () => {
+      await api
+        .put("/hero", {
+          id: hero.id,
+          lat: threat.location[0].lat + distanceLat,
+          lng: threat.location[0].lng + distanceLng,
         })
-      );
-    }, 15000);
-
-    await api
-      .put("/hero", {
-        id: hero.id,
-        lat: threat.location[0].lat + distanceLat,
-        lng: threat.location[0].lng + distanceLng,
-      })
-      .then(() => {
-        fetchData();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then(() => {
+          fetchData();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, 7000);
 
     setTimeout(() => {
       setThreats((state) =>
@@ -82,7 +69,7 @@ export default function Home() {
         .catch((err) => {
           console.log(err);
         });
-    }, 7000);
+    }, 14000);
   };
 
   const updateMarkerView = (marker) => {

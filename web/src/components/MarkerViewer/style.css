@@ -7,7 +7,7 @@ div.marker-viewer-container-S {
   top: 15px;
   left: 15px;
   width: 300px;
-  height: 200px;
+  height: 300px;
   border-radius: 7px;
   -webkit-box-shadow: 10px 10px 26px -16px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 10px 10px 26px -16px rgba(0, 0, 0, 0.75);
@@ -28,6 +28,7 @@ div.marker-viewer-rank-S {
 div.marker-viewer-close-S {
   width: 60%;
   height: 30px;
+  margin-top: 15px;
   margin-left: 20%;
   margin-right: 20%;
   padding-top: 5px;
@@ -53,7 +54,7 @@ div.marker-viewer-container-A {
   top: 15px;
   left: 15px;
   width: 300px;
-  height: 200px;
+  height: 300px;
   border-radius: 7px;
   -webkit-box-shadow: 10px 10px 26px -16px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 10px 10px 26px -16px rgba(0, 0, 0, 0.75);
@@ -74,6 +75,7 @@ div.marker-viewer-rank-A {
 div.marker-viewer-close-A {
   width: 60%;
   height: 30px;
+  margin-top: 15px;
   margin-left: 20%;
   margin-right: 20%;
   padding-top: 5px;
@@ -99,7 +101,7 @@ div.marker-viewer-container-B {
   top: 15px;
   left: 15px;
   width: 300px;
-  height: 200px;
+  height: 300px;
   border-radius: 7px;
   -webkit-box-shadow: 10px 10px 26px -16px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 10px 10px 26px -16px rgba(0, 0, 0, 0.75);
@@ -120,6 +122,7 @@ div.marker-viewer-rank-B {
 div.marker-viewer-close-B {
   width: 60%;
   height: 30px;
+  margin-top: 15px;
   margin-left: 20%;
   margin-right: 20%;
   padding-top: 5px;
@@ -145,7 +148,7 @@ div.marker-viewer-container-C {
   top: 15px;
   left: 15px;
   width: 300px;
-  height: 200px;
+  height: 300px;
   border-radius: 7px;
   -webkit-box-shadow: 10px 10px 26px -16px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 10px 10px 26px -16px rgba(0, 0, 0, 0.75);
@@ -166,6 +169,7 @@ div.marker-viewer-rank-C {
 div.marker-viewer-close-C {
   width: 60%;
   height: 30px;
+  margin-top: 15px;
   margin-left: 20%;
   margin-right: 20%;
   padding-top: 5px;
@@ -191,7 +195,7 @@ div.marker-viewer-container-God {
   top: 15px;
   left: 15px;
   width: 300px;
-  height: 200px;
+  height: 300px;
   border-radius: 7px;
   -webkit-box-shadow: 10px 10px 26px -16px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 10px 10px 26px -16px rgba(0, 0, 0, 0.75);
@@ -212,6 +216,7 @@ div.marker-viewer-rank-God {
 div.marker-viewer-close-God {
   width: 60%;
   height: 30px;
+  margin-top: 15px;
   margin-left: 20%;
   margin-right: 20%;
   padding-top: 5px;
@@ -237,7 +242,7 @@ div.marker-viewer-container-Dragon {
   top: 15px;
   left: 15px;
   width: 300px;
-  height: 200px;
+  height: 300px;
   border-radius: 7px;
   -webkit-box-shadow: 10px 10px 26px -16px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 10px 10px 26px -16px rgba(0, 0, 0, 0.75);
@@ -258,6 +263,7 @@ div.marker-viewer-rank-Dragon {
 div.marker-viewer-close-Dragon {
   width: 60%;
   height: 30px;
+  margin-top: 15px;
   margin-left: 20%;
   margin-right: 20%;
   padding-top: 5px;
@@ -283,7 +289,7 @@ div.marker-viewer-container-Tiger {
   top: 15px;
   left: 15px;
   width: 300px;
-  height: 200px;
+  height: 300px;
   border-radius: 7px;
   -webkit-box-shadow: 10px 10px 26px -16px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 10px 10px 26px -16px rgba(0, 0, 0, 0.75);
@@ -304,6 +310,7 @@ div.marker-viewer-rank-Tiger {
 div.marker-viewer-close-Tiger {
   width: 60%;
   height: 30px;
+  margin-top: 15px;
   margin-left: 20%;
   margin-right: 20%;
   padding-top: 5px;
@@ -329,7 +336,7 @@ div.marker-viewer-container-Wolf {
   top: 15px;
   left: 15px;
   width: 300px;
-  height: 200px;
+  height: 300px;
   border-radius: 7px;
   -webkit-box-shadow: 10px 10px 26px -16px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 10px 10px 26px -16px rgba(0, 0, 0, 0.75);
@@ -350,6 +357,7 @@ div.marker-viewer-rank-Wolf {
 div.marker-viewer-close-Wolf {
   width: 60%;
   height: 30px;
+  margin-top: 15px;
   margin-left: 20%;
   margin-right: 20%;
   padding-top: 5px;

@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import "./style.css";
 
-export default function Component({ onSend }) {
+export default function Component({ onSend, onClickOutside }) {
   const [heroName, setHeroName] = useState("");
   const [heroRank, setHeroRank] = useState("");
   const [lat, setLat] = useState("");
   const [lng, setLng] = useState("");
 
   return (
-    <div className="form-hero">
+    <div className="form-hero" onClick={onClickOutside}>
       <input
         className="hero-name"
         type="text"
@@ -46,7 +46,8 @@ export default function Component({ onSend }) {
 
       <div
         className="hero-form-submit"
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
           if (heroName === "" || heroRank === "" || lat === "" || lng === "") {
             alert("Dados inválidos");
           } else {
